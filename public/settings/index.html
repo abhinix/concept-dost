@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Concept-Dost</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="../favicon/concept-dost-white-circle.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
+    <div class="settings-container">
+
+        <aside class="sidebar">
+            <div class="brand">
+                <a href="../" class="back-link"><i class="fas fa-arrow-left"></i> Back</a>
+                <h2>Settings</h2>
+            </div>
+
+            <nav class="menu">
+                <button class="menu-item active" data-target="account-section">
+                    <i class="fas fa-user"></i> Account
+                </button>
+                <button class="menu-item" data-target="data-section">
+                    <i class="fas fa-database"></i> Data Control
+                </button>
+                <button class="menu-item danger" data-target="danger-section">
+                    <i class="fas fa-exclamation-triangle"></i> Danger Zone
+                </button>
+                <li class="menu-item" data-target="about-panel">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About</span>
+                </li>
+            </nav>
+        </aside>
+
+        <main class="content">
+
+            <section id="account-section" class="settings-panel">
+                <h3>My Profile</h3>
+                <p class="desc">Manage your personal information.</p>
+
+                <div class="form-group">
+                    <label>Profile Picture</label>
+                    <div class="profile-row">
+                        <img id="settings-pic" src="" alt="Profile">
+                        <span class="badge">Google Linked</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="name-input" placeholder="Your Name">
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email-input" readonly class="readonly-input">
+                    <br>
+                    <small>Email cannot be changed as it is linked to Google.</small>
+                </div>
+
+                <button id="save-profile-btn" class="btn-primary">Save Changes</button>
+            </section>
+
+            <section id="data-section" class="settings-panel hidden">
+                <h3>Data Management</h3>
+                <p class="desc">Control your saved learning data.</p>
+
+                <div class="setting-item">
+                    <div class="info">
+                        <h4>Clear Learning History</h4>
+                        <p>Permanently remove your entire search history.</p>
+                    </div>
+                    <button class="btn-secondary" onclick="clearData('history')">Clear History</button>
+                </div>
+
+                <div class="setting-item">
+                    <div class="info">
+                        <h4>Delete All Saved Cards</h4>
+                        <p>Permanently remove all your saved notes.</p>
+                    </div>
+                    <button class="btn-secondary" onclick="clearData('cards')">Delete Notes</button>
+                </div>
+            </section>
+
+            <section id="danger-section" class="settings-panel hidden">
+                <h3 class="text-danger">Danger Zone</h3>
+                <p class="desc">Irreversible actions.</p>
+
+                <div class="danger-box">
+                    <h4>Delete Account</h4>
+                    <p>This will wipe your account, score, history, and notes permanently.</p>
+                    <button class="btn-danger" style="margin-top: 10px;" onclick="openDeleteModal()">Delete My
+                        Account</button>
+                </div>
+            </section>
+            <section id="about-panel" class="settings-panel hidden">
+                <h2>About Concept-Dost</h2>
+            <p class="panel-desc">Reimagining how we learn complex topics.</p>
+
+            <div class="about-container" style="max-width: 700px; margin-top: 20px;">
+
+                <div class="about-card"
+                    style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid #4285F4;">
+                    <h3 style="margin-top: 0; color: #333;">🚀 What is Concept-Dost?</h3>
+                    <p style="color: #555; line-height: 1.6;">
+                        Concept-Dost is your <strong>AI-powered personal tutor</strong> that transforms boring,
+                        complex textbook topics into simple, bite-sized cards. We believe learning shouldn't be
+                        hard; it should be like talking to a smart friend.
+                    </p>
+                </div>
+
+                <div class="about-section" style="margin-bottom: 25px;">
+                    <h4 style="color: #444; margin-bottom: 15px; font-weight: 600;">🧠 Learning Made Easy</h4>
+                    <ul style="list-style: none; padding-left: 20px;">
+                        <li style="margin-bottom: 12px; display: flex; align-items: start; gap: 10px;">
+                            <i class="fas fa-puzzle-piece" style="color: #EA4335; margin-top: 4px;"></i>
+                            <span style="color: #555;"><strong>Analogy-Based Learning:</strong> Understand complex
+                                ideas (like Blockchain) through simple real-world examples (like a public
+                                notebook).</span>
+                        </li>
+                        <li style="margin-bottom: 12px; display: flex; align-items: start; gap: 10px;">
+                            <i class="fas fa-magic" style="color: #FBBC04; margin-top: 4px;"></i>
+                            <span style="color: #555;"><strong>One-Click Simplify:</strong> Find something too hard?
+                                Just click "Simplify" to rewrite it for a 10-year-old.</span>
+                        </li>
+                        <li style="margin-bottom: 12px; display: flex; align-items: start; gap: 10px;">
+                            <i class="fas fa-highlighter" style="color: #34A853; margin-top: 4px;"></i>
+                            <span style="color: #555;"><strong>Smart Highlighting:</strong> Key definitions and
+                                important phrases are automatically highlighted for quick reading.</span>
+                        </li>
+                        <li style="margin-bottom: 12px; display: flex; align-items: start; gap: 10px;">
+                            <i class="fas fa-layer-group" style="color: #4285F4; margin-top: 4px;"></i>
+                            <span style="color: #555;"><strong>Structured Knowledge:</strong> Information is broken
+                                down into 4-6 digestible cards (Definition, Analogy, Use Case, Takeaway).</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="about-section" style="margin-bottom: 25px;">
+                    <h4 style="color: #444; margin-bottom: 15px; font-weight: 600;">🎨 Personalized for You</h4>
+                    <ul style="list-style: none; padding-left: 20px;">
+                        <li style="margin-bottom: 12px; display: flex; align-items: start; gap: 10px;">
+                            <i class="fas fa-language" style="color: #FF6D01; margin-top: 4px;"></i>
+                            <span style="color: #555;"><strong>Multi-Language:</strong> Learn in English, Hindi, or
+                                Hinglish depending on your comfort.</span>
+                        </li>
+                        <li style="margin-bottom: 12px; display: flex; align-items: start; gap: 10px;">
+                            <i class="fas fa-sliders-h" style="color: #46bdc6; margin-top: 4px;"></i>
+                            <span style="color: #555;"><strong>Detail Control:</strong> Choose Short (Revision),
+                                Medium, or Detailed explanations based on your need.</span>
+                        </li>
+                        <li style="margin-bottom: 12px; display: flex; align-items: start; gap: 10px;">
+                            <i class="fas fa-user-friends" style="color: #9334E6; margin-top: 4px;"></i>
+                            <span style="color: #555;"><strong>AI Persona:</strong> Choose the tone of your tutor —
+                                Friendly Dost or
+                                Dadi Maa.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="about-section" style="margin-bottom: 25px;">
+                    <h4 style="color: #444; margin-bottom: 15px; font-weight: 600;">⚡ Productivity Tools</h4>
+                    <ul style="list-style: none; padding-left: 20px;">
+                        <li style="margin-bottom: 12px; display: flex; align-items: start; gap: 10px;">
+                            <i class="far fa-bookmark" style="color: #EA4335; margin-top: 4px;"></i>
+                            <span style="color: #555;"><strong>Save & Organize:</strong> Bookmark important cards to
+                                your dashboard to revise later.</span>
+                        </li>
+                        <li style="margin-bottom: 12px; display: flex; align-items: start; gap: 10px;">
+                            <i class="far fa-copy" style="color: #555; margin-top: 4px;"></i>
+                            <span style="color: #555;"><strong>Clean Copy:</strong> Copy text without formatting
+                                symbols for your assignments/notes.</span>
+                        </li>
+                        <li style="margin-bottom: 12px; display: flex; align-items: start; gap: 10px;">
+                            <i class="fas fa-history" style="color: #FBBC04; margin-top: 4px;"></i>
+                            <span style="color: #555;"><strong>Learning History:</strong> Auto-saves what you
+                                explore so you never lose track.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="about-section" style="margin-bottom: 25px;">
+                    <h4 style="color: #444; margin-bottom: 15px; font-weight: 600;">👥 Team Diamond Members</h4>
+                    <ul style="list-style: none; padding-left: 20px;">
+                        <li style="margin-bottom: 12px; display: flex; align-items: start; gap: 10px;">
+                            <i class="fas fa-user-tie" style="color: #0F9D58; margin-top: 4px;"></i>
+
+                            <div style="display: flex; flex-direction: column;">
+                                <span style="color: #333; font-weight: bold; margin-bottom: 4px;">Abhinit</span>
+
+                                <div style="display: flex; gap: 15px; font-size: 0.9rem;">
+                                    <a href="https://www.linkedin.com/in/abhinit-4a9919266" target="_blank"
+                                        style="text-decoration: none; color: #0077b5; display: flex; align-items: center; gap: 5px;">
+                                        <i class="fab fa-linkedin"></i> LinkedIn
+                                    </a>
+                                    <a href="https://instagram.com/a8h1n17" target="_blank"
+                                        style="text-decoration: none; color: #E1306C; display: flex; align-items: center; gap: 5px;">
+                                        <i class="fab fa-instagram"></i> Instagram
+                                    </a>
+                                    <a href="https://abhinix.github.io/" target="_blank"
+                                        style="text-decoration: none; color: #424242; display: flex; align-items: center; gap: 5px;">
+                                        <i class="fas fa-globe"></i> Website
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div
+                    style="margin-top: 30px; text-align: center; color: #999; font-size: 0.85rem; border-top: 1px solid #eee; padding-top: 15px;">
+                    <p>Version 1.0.0 • Built with ❤️ by Team Diamond • GDG SCRIET TechSprint Hackathon</p>
+                </div>
+
+            </div>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="delete-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3 class="text-danger"><i class="fas fa-exclamation-triangle"></i> Final Warning</h3>
+            <p>This action is <strong>irreversible</strong>. All your data including saved cards, history, and learning
+                score will be lost forever.</p>
+
+            <p style="margin-top: 15px; font-size: 0.9rem;">To confirm, type <strong>DELETE</strong> below:</p>
+            <input type="text" id="delete-confirm-input" placeholder="Type DELETE here" autocomplete="off">
+
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+                <button id="final-delete-btn" class="btn-danger" disabled onclick="confirmDeleteAccount()">Delete
+                    Everything</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../pop-up.js"></script>
+    <script src="../firebase-config.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

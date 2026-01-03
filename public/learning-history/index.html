@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning History | Concept-Dost</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="../favicon/concept-dost-white-circle.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
+    <header class="top-bar">
+        <div class="nav-left">
+            <a href="../" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
+            <h2 class="nav-left-h2">Learning History</h2>
+        </div>
+
+        <div class="controls-wrapper" style="display: none;">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="historySearch" placeholder="Search past topics...">
+            </div>
+
+            <div class="sort-container">
+                <select id="sortOrder">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                </select>
+            </div>
+            <button id="toggle-select-btn" class="action-btn" style="display: none;">Selection</button>
+        </div>
+
+    </header>
+
+    <main class="container">
+
+        <div id="initial-loader" class="page-loader">
+            <div class="spinner"></div>
+            <p>Loading your history...</p>
+        </div>
+
+        <div id="empty-state" class="empty-state hidden">
+            <i class="fas fa-history"></i>
+            <h3>No History Found</h3>
+            <p>Start learning to build your timeline!</p>
+        </div>
+
+        <div id="history-list" class="history-list"></div>
+    </main>
+
+    <div id="bulk-action-bar" class="bulk-bar hidden">
+        <div class="bulk-left">
+            <span id="selected-count">0 Selected</span>
+            <button id="select-all-btn" class="text-btn">Select All</button>
+        </div>
+        <button id="delete-selected-btn" class="delete-btn">
+            <i class="fas fa-trash-alt"></i> Delete
+        </button>
+    </div>
+
+    <script src="../pop-up.js"></script>
+    <script src="../firebase-config.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

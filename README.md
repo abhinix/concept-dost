@@ -21,7 +21,7 @@ Create a `.env` file in the project root (a sample is already present). Required
 - `FIREBASE_CLIENT_EMAIL` — service account client email
 - `FIREBASE_PRIVATE_KEY` — service account private key (wrap in double quotes in `.env` and keep literal newlines as `\\n` — `firebaseConfig.js` will convert them to real newlines)
 
-Example `.env` values (do NOT commit this file):
+Example `.env` values:
 
 ```env
 PORT=3000
@@ -107,3 +107,4 @@ Notes about API behavior:
 **License & Credits**
 - This project is open-source and available under the **[MIT License](LICENSE)**.
 - Credits: Built with Node.js, Google Generative AI, Firebase, and plain web technologies.
+
